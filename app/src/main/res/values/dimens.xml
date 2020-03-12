@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="altoETMain">25dp</dimen>
+    <dimen name="anchoBtnMain">100dp</dimen>
+    <dimen name="altoBtnMain">60dp</dimen>
+    <dimen name="ETmarginSide">70dp</dimen>
+    <dimen name="ETmargenB">35dp</dimen>
+</resources>
