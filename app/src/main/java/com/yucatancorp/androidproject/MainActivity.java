@@ -1,5 +1,6 @@
 package com.yucatancorp.androidproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,10 +26,20 @@ public class MainActivity extends AppCompatActivity {
 
     boolean checarEmail, checarPassword;
 
+    public final static String NOMBREUSUARIO = "nombreUsuario";
+    public final static String PASSWORDUSUARIO = "passwordUsuario";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+
+            nombreUsuario.setText(savedInstanceState.getString(NOMBREUSUARIO));
+            passwordUsuario.setText(savedInstanceState.getString(PASSWORDUSUARIO));
+
+        }
 
         nombreUsuario = findViewById(R.id.ETnombre);
         passwordUsuario = findViewById(R.id.ETpassword);
@@ -95,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
 
                     dialog.dismiss();
+
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.UsuarioExito), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -104,5 +118,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(NOMBREUSUARIO, nombreUsuario.getText().toString());
+        outState.putString(PASSWORDUSUARIO, passwordUsuario.getText().toString());
 
+        super.onSaveInstanceState(outState);
+
+    }
 }
