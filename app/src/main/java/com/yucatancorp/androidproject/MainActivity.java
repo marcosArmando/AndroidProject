@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkField(View v){
+    public void checkFields(View v){
 
     }
 
