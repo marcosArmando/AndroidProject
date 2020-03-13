@@ -12,6 +12,7 @@ public class Pokemon {
 
     public int getFotoPokemon() {
         return fotoPokemon;
+
     }
 
     public void setFotoPokemon(int fotoPokemon) {
