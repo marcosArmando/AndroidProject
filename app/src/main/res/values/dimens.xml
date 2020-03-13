@@ -5,4 +5,5 @@
     <dimen name="altoBtnMain">60dp</dimen>
     <dimen name="ETmarginSide">70dp</dimen>
     <dimen name="ETmargenB">35dp</dimen>
+    <dimen name="TVCrearuser">20sp</dimen>
 </resources>

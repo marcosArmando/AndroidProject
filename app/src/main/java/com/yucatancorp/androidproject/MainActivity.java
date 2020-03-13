@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (checarEmail && checarPassword) {
 
+                    startActivity(new Intent(MainActivity.this, PokemonsActivity.class));
 
                 } else {
 
