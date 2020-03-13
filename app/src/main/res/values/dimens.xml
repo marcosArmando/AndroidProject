@@ -8,6 +8,6 @@
     <dimen name="TVCrearuser">20sp</dimen>
     <dimen name="ETanchoNU">250dp</dimen>
     <dimen name="marginNU">20dp</dimen>
-    <dimen name="altoCV">300dp</dimen>
-    <dimen name="altoImagenCV">250dp</dimen>
+    <dimen name="altoCV">150dp</dimen>
+    <dimen name="altoImagenCV">55dp</dimen>
 </resources>

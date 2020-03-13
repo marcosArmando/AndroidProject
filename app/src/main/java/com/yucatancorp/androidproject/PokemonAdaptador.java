@@ -1,6 +1,5 @@
 package com.yucatancorp.androidproject;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{
 
@@ -30,6 +30,18 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
 
+        BajarImagenes bajarImagenes = new BajarImagenes();
+
+        try {
+            pokemonViewholder.imageView.setImageBitmap(bajarImagenes.execute(Integer.toString(position)).get());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //DownloadPokemon downloadPokemon = new DownloadPokemon();
+        //pokemonViewholder.textView.setText(tempPokemon.getName());
     }
 
     @Override
