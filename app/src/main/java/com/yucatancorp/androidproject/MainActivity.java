@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.yucatancorp.androidproject.checkUserInput.checkFields;
+import static com.yucatancorp.androidproject.checkUserInput.checkPassword;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogIn);
         crearUsuario = findViewById(R.id.TVcrearUsuario);
 
-        checarEmail = checkFields(nombreUsuario);
-        checarPassword = checkFields(passwordUsuario);
+        checarEmail = checkFields(nombreUsuario, MainActivity.this);
+        checarPassword = checkFields(passwordUsuario, MainActivity.this);
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean checkUsuarioNuevo, checkPasswordNuevo, checkPasswordLenght;
 
-        checkUsuarioNuevo = checkFields(nuevoUsuario);
-        checkPasswordLenght = checkFields(nuevoPassword);
+        checkUsuarioNuevo = checkFields(nuevoUsuario, context);
+        checkPasswordLenght = checkFields(nuevoPassword, context);
         checkPasswordNuevo = checkPassword(nuevoPassword, context);
 
         registrar.setOnClickListener(new View.OnClickListener() {
@@ -102,43 +104,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkFields(EditText v){
 
-        String tempString;
-
-        tempString = v.getText().toString();
-
-        if (tempString.isEmpty()) {
-            v.setError(getResources().getString(R.string.campoVacio));
-            v.requestFocus();
-
-            return false;
-        }
-
-        if (v.getId()== R.id.ETnombre && !Patterns.EMAIL_ADDRESS.matcher(tempString).matches()){
-
-            v.setError(getResources().getString(R.string.ingreseMail));
-            v.requestFocus();
-
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean checkPassword(EditText v, Context context) {
-
-        String passwordTemp = v.getText().toString();
-
-        if (passwordTemp.length() < 5) {
-
-            v.setError(getResources().getString(R.string.necesitaContraMayor));
-            Toast.makeText(context, getResources().getString(R.string.contraMayor5), Toast.LENGTH_LONG)
-                    .show();
-
-            return false;
-        }
-
-        return true;
-    }
 }
