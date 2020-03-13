@@ -9,11 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import me.sargunvohra.lib.pokekotlin.client.PokeApi;
+import me.sargunvohra.lib.pokekotlin.client.PokeApiClient;
+import me.sargunvohra.lib.pokekotlin.model.PokemonSpecies;
 
 public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{
 
     private ArrayList<Pokemon> pokemons;
+    private PokeApi pokeApi = new PokeApiClient();
+    private PokemonSpecies tempPokemon;
 
     public PokemonAdaptador(ArrayList<Pokemon> pokemons){
         this.pokemons = pokemons;
@@ -28,9 +35,11 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
-        Pokemon pokemon = pokemons.get(position);
-        pokemonViewholder.imageView.setImageResource(pokemon.getFotoPokemon());
-        pokemonViewholder.textView.setText(pokemon.getNombrePokemon());
+        tempPokemon = pokeApi.getPokemonSpecies(position);
+        DownloadImagenes downloadImagenes = new DownloadImagenes();
+
+        pokemonViewholder.imageView.setImageBitmap(downloadImagenes.doInBackground(Integer.toString(position)));
+        pokemonViewholder.textView.setText(tempPokemon.getName());
     }
 
     @Override

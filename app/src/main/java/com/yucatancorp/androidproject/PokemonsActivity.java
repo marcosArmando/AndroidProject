@@ -42,12 +42,5 @@ public class PokemonsActivity extends AppCompatActivity {
 
     }
 
-    public class obtenerDatos extends AsyncTask<String, Void, String>{
 
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return null;
-        }
-    }
 }
