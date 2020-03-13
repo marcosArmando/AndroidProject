@@ -7,4 +7,9 @@
     <string name="ingreseMail">Ingrese un correo electrónico.</string>
     <string name="errorCrede">Hay un error en sus credenciales.</string>
     <string name="crearUsuario">Crear usuario</string>
+    <string name="nuevoUser">Nuevo usuario</string>
+    <string name="nuevoPassword">Nuevo password</string>
+    <string name="registrar">Registrar</string>
+    <string name="contraMayor5">La contraseña debe ser mayor a 5 caracteres.</string>
+    <string name="necesitaContraMayor">Necesita una contraseña de más de 5 caracteres</string>
 </resources>

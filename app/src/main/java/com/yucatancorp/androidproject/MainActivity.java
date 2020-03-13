@@ -2,18 +2,23 @@ package com.yucatancorp.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText nombreUsuario, passwordUsuario;
     Button logIn;
+    TextView crearUsuario;
 
     boolean checarEmail, checarPassword;
 
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         nombreUsuario = findViewById(R.id.ETnombre);
         passwordUsuario = findViewById(R.id.ETpassword);
         logIn = findViewById(R.id.btnLogIn);
+        crearUsuario = findViewById(R.id.TVcrearUsuario);
 
         checarEmail = checkFields(nombreUsuario);
         checarPassword = checkFields(passwordUsuario);
@@ -49,26 +55,70 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        crearUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrarUsuario(MainActivity.this);
+            }
+        });
     }
 
-    public boolean checkFields(View v){
+    public void registrarUsuario(Context context){
 
-        EditText temp = (EditText) v;
+        final Dialog dialog = new Dialog(context);
+
+        dialog.setContentView(R.layout.nuevousuario);
+        final EditText nuevoUsuario = dialog.findViewById(R.id.newUsuario);
+        final EditText nuevoPassword = dialog.findViewById(R.id.newPassword);
+
+        Button registrar = dialog.findViewById(R.id.btnNuevoUser);
+
+        final boolean checkUsuarioNuevo, checkPasswordNuevo, checkPasswordLenght;
+
+        checkUsuarioNuevo = checkFields(nuevoUsuario);
+        checkPasswordLenght = checkFields(nuevoPassword);
+        checkPasswordNuevo = checkPassword(nuevoPassword, context);
+
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checkUsuarioNuevo && checkPasswordNuevo && checkPasswordLenght) {
+
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("usuarios", 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    editor.putString(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
+                    editor.apply();
+
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public boolean checkFields(EditText v){
+
         String tempString;
 
-        tempString = String.valueOf(temp.getText());
+        tempString = v.getText().toString();
 
         if (tempString.isEmpty()) {
-            temp.setError(getResources().getString(R.string.campoVacio));
-            temp.requestFocus();
+            v.setError(getResources().getString(R.string.campoVacio));
+            v.requestFocus();
 
             return false;
         }
 
-        if (temp.getId()== R.id.ETnombre && !Patterns.EMAIL_ADDRESS.matcher(tempString).matches()){
+        if (v.getId()== R.id.ETnombre && !Patterns.EMAIL_ADDRESS.matcher(tempString).matches()){
 
-            temp.setError(getResources().getString(R.string.ingreseMail));
-            temp.requestFocus();
+            v.setError(getResources().getString(R.string.ingreseMail));
+            v.requestFocus();
 
             return false;
         }
@@ -76,4 +126,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public boolean checkPassword(EditText v, Context context) {
+
+        String passwordTemp = v.getText().toString();
+
+        if (passwordTemp.length() < 5) {
+
+            v.setError(getResources().getString(R.string.necesitaContraMayor));
+            Toast.makeText(context, getResources().getString(R.string.contraMayor5), Toast.LENGTH_LONG)
+                    .show();
+
+            return false;
+        }
+
+        return true;
+    }
 }
