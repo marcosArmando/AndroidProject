@@ -1,5 +1,6 @@
 package com.yucatancorp.androidproject;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,23 +9,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{
 
+    private ArrayList<Pokemon> pokemons;
+
+    public PokemonAdaptador(ArrayList<Pokemon> pokemons){
+        this.pokemons = pokemons;
+    }
 
     @NonNull
     @Override
     public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_card, parent);
+        return new PokemonViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
+        Pokemon pokemon = pokemons.get(position);
 
+        pokemonViewholder.imageView.setImageResource(pokemon.getFotoPokemon());
+        pokemonViewholder.textView.setText(pokemon.getNombrePokemon());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return pokemons.size();
     }
 
     public static class PokemonViewHolder extends RecyclerView.ViewHolder{
