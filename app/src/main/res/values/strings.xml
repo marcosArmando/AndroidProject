@@ -5,4 +5,5 @@
     <string name="email">email</string>
     <string name="campoVacio">Por favor, ingrese el dato correspondiente.</string>
     <string name="ingreseMail">Ingrese un correo electrónico.</string>
+    <string name="errorCrede">Hay un error en sus credenciales.</string>
 </resources>

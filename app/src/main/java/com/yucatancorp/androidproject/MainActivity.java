@@ -2,16 +2,20 @@ package com.yucatancorp.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText nombreUsuario, passwordUsuario;
     Button logIn;
+
+    boolean checarEmail, checarPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +26,28 @@ public class MainActivity extends AppCompatActivity {
         passwordUsuario = findViewById(R.id.ETpassword);
         logIn = findViewById(R.id.btnLogIn);
 
-        boolean checarEmail = checkFields(nombreUsuario);
-        boolean checarPassword = checkFields(passwordUsuario);
+        checarEmail = checkFields(nombreUsuario);
+        checarPassword = checkFields(passwordUsuario);
+
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checarEmail && checarPassword) {
 
 
+                } else {
+
+                    nombreUsuario.setText("");
+                    passwordUsuario.setText("");
+
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.errorCrede), Toast.LENGTH_LONG)
+                            .show();
+
+                }
+
+            }
+        });
     }
 
     public boolean checkFields(View v){
