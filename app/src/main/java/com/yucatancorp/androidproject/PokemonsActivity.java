@@ -29,6 +29,12 @@ public class PokemonsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         pokemons = new ArrayList<>();
 
+        pokemons.add(new Pokemon(0, "h"));
+        pokemons.add(new Pokemon(0, "h"));
+        pokemons.add(new Pokemon(0, "h"));
+        pokemons.add(new Pokemon(0, "h"));
+        pokemons.add(new Pokemon(0, "h"));
+
         LinearLayoutManager llm = new LinearLayoutManager(PokemonsActivity.this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
