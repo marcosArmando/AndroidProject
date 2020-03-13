@@ -3,4 +3,6 @@
     <string name="password">password</string>
     <string name="logIn">LogIn</string>
     <string name="email">email</string>
+    <string name="campoVacio">Por favor, ingrese el dato correspondiente.</string>
+    <string name="ingreseMail">Ingrese un correo electrónico.</string>
 </resources>
