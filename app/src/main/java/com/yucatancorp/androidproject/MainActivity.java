@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.yucatancorp.androidproject.IntentsAActivities.irPokemonActivity;
 import static com.yucatancorp.androidproject.checkUserInput.checkFields;
 import static com.yucatancorp.androidproject.checkUserInput.checkPassword;
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences, sharedPreferencesStatus;
 
+    SharedPreferencesActions sharedPreferencesActions;
+
     public final static String NOMBREUSUARIO = "nombreUsuario";
     public final static String PASSWORDUSUARIO = "passwordUsuario";
     public final static String USUARIOLOGUEADO = "usurioLogueado";
@@ -38,17 +41,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (checarLogIn()) {
-
-            irAPokemonsActivity();
-
-        }
-
         if (savedInstanceState != null) {
 
             nombreUsuario.setText(savedInstanceState.getString(NOMBREUSUARIO));
             passwordUsuario.setText(savedInstanceState.getString(PASSWORDUSUARIO));
 
+        }
+
+        sharedPreferences = getApplicationContext().getSharedPreferences(USUARIOS, 0);
+        sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
+
+        sharedPreferencesActions = new SharedPreferencesActions(sharedPreferences, sharedPreferencesStatus);
+
+        if (sharedPreferencesActions.checarLogIn()) {
+            irPokemonActivity(MainActivity.this);
         }
 
         nombreUsuario = findViewById(R.id.ETnombre);
@@ -59,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
         checarEmail = checkFields(nombreUsuario, MainActivity.this);
         checarPassword = checkFields(passwordUsuario, MainActivity.this);
 
-        sharedPreferences = getApplicationContext().getSharedPreferences(USUARIOS, 0);
-        sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,21 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
                     if (nombreUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
 
-                        SharedPreferences.Editor editor = sharedPreferencesStatus.edit();
-                        editor.putBoolean(STATUS, true);
-                        editor.apply();
-                        irAPokemonsActivity();
+                        sharedPreferencesActions.changeStatusToTrue();
+                        irPokemonActivity(MainActivity.this);
                     }
-
 
                 } else {
 
                     nombreUsuario.setText("");
                     passwordUsuario.setText("");
 
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.errorCrede), Toast.LENGTH_LONG)
-                            .show();
-
+                    mostrarToast(MainActivity.this, getResources().getString(R.string.errorCrede));
                 }
 
             }
@@ -98,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void irAPokemonsActivity() {
-        startActivity(new Intent(MainActivity.this, PokemonsActivity.class));
-    }
 
     public void registrarUsuario(Context context){
 
@@ -124,14 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (checkUsuarioNuevo && checkPasswordNuevo && checkPasswordLenght) {
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putString(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
-                    editor.apply();
+                    sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
 
                     dialog.dismiss();
 
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.UsuarioExito), Toast.LENGTH_LONG).show();
+                    mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
                 }
 
             }
@@ -141,10 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean checarLogIn() {
+    public void mostrarToast(Context context, String mensaje) {
 
-        return sharedPreferencesStatus.getBoolean(USUARIOLOGUEADO, false);
-
+        Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
     }
 
     @Override
