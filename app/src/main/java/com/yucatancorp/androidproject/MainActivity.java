@@ -26,13 +26,24 @@ public class MainActivity extends AppCompatActivity {
 
     boolean checarEmail, checarPassword;
 
+    SharedPreferences sharedPreferences, sharedPreferencesStatus;
+
     public final static String NOMBREUSUARIO = "nombreUsuario";
     public final static String PASSWORDUSUARIO = "passwordUsuario";
+    public final static String USUARIOLOGUEADO = "usurioLogueado";
+    public final static String USUARIOS = "usurios";
+    public final static String STATUS = "status";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (checarLogIn()) {
+
+            irAPokemonsActivity();
+
+        }
 
         if (savedInstanceState != null) {
 
@@ -49,13 +60,23 @@ public class MainActivity extends AppCompatActivity {
         checarEmail = checkFields(nombreUsuario, MainActivity.this);
         checarPassword = checkFields(passwordUsuario, MainActivity.this);
 
+        sharedPreferences = getApplicationContext().getSharedPreferences(USUARIOS, 0);
+        sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (checarEmail && checarPassword) {
 
-                    startActivity(new Intent(MainActivity.this, PokemonsActivity.class));
+                    if (nombreUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
+
+                        SharedPreferences.Editor editor = sharedPreferencesStatus.edit();
+                        editor.putBoolean(STATUS, true);
+                        editor.apply();
+                        irAPokemonsActivity();
+                    }
+
 
                 } else {
 
@@ -76,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 registrarUsuario(MainActivity.this);
             }
         });
+    }
+
+    public void irAPokemonsActivity() {
+        startActivity(new Intent(MainActivity.this, PokemonsActivity.class));
     }
 
     public void registrarUsuario(Context context){
@@ -100,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (checkUsuarioNuevo && checkPasswordNuevo && checkPasswordLenght) {
 
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("usuarios", 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
                     editor.putString(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
@@ -115,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+
+    }
+
+    public boolean checarLogIn() {
+
+        return sharedPreferencesStatus.getBoolean(USUARIOLOGUEADO, false);
 
     }
 
