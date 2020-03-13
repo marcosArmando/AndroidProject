@@ -29,7 +29,6 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
         Pokemon pokemon = pokemons.get(position);
-
         pokemonViewholder.imageView.setImageResource(pokemon.getFotoPokemon());
         pokemonViewholder.textView.setText(pokemon.getNombrePokemon());
     }
