@@ -9,9 +9,7 @@ public class checkUserInput {
 
     public static boolean checkFields(EditText v, Context context){
 
-        String tempString;
-
-        tempString = v.getText().toString();
+        String tempString = v.getText().toString();
 
         if (tempString.isEmpty()) {
             v.setError(context.getResources().getString(R.string.campoVacio));

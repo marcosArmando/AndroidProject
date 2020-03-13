@@ -21,25 +21,18 @@ public class SharedPreferencesActions {
 
     public boolean checarLogIn() {
 
-        return sharedPreferencesStatus.getBoolean(USUARIOLOGUEADO, false);
+        return sharedPreferencesStatus.getBoolean(STATUS, false);
 
     }
 
-    public void changeStatusToTrue() {
+    public void changeStatus(boolean booleano) {
 
         SharedPreferences.Editor editor = sharedPreferencesStatus.edit();
-        editor.putBoolean(STATUS, true);
+        editor.putBoolean(STATUS, booleano);
         editor.apply();
 
     }
 
-    public void changeStatusToFalse() {
-
-        SharedPreferences.Editor editor = sharedPreferencesStatus.edit();
-        editor.putBoolean(STATUS, false);
-        editor.apply();
-
-    }
 
     public void registrarUsuarioNuevo(String nombre, String password){
 

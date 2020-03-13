@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     Button logIn;
     TextView crearUsuario;
 
-    boolean checarEmail, checarPassword;
-
     SharedPreferences sharedPreferences, sharedPreferencesStatus;
 
     SharedPreferencesActions sharedPreferencesActions;
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (sharedPreferencesActions.checarLogIn()) {
             irPokemonActivity(MainActivity.this);
+            finish();
         }
 
         nombreUsuario = findViewById(R.id.ETnombre);
@@ -61,18 +60,15 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogIn);
         crearUsuario = findViewById(R.id.TVcrearUsuario);
 
-        checarEmail = checkFields(nombreUsuario, MainActivity.this);
-        checarPassword = checkFields(passwordUsuario, MainActivity.this);
-
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (checarEmail && checarPassword) {
+                if (checkFields(nombreUsuario, MainActivity.this) && checkFields(passwordUsuario, MainActivity.this)) {
 
-                    if (nombreUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
+                    if (passwordUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
 
-                        sharedPreferencesActions.changeStatusToTrue();
+                        sharedPreferencesActions.changeStatus(true);
                         irPokemonActivity(MainActivity.this);
                     }
 
@@ -99,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public void registrarUsuario(Context context){
 
         final Dialog dialog = new Dialog(context);
+        final Context context1 = context;
 
         dialog.setContentView(R.layout.nuevousuario);
         final EditText nuevoUsuario = dialog.findViewById(R.id.newUsuario);
@@ -106,17 +103,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button registrar = dialog.findViewById(R.id.btnNuevoUser);
 
-        final boolean checkUsuarioNuevo, checkPasswordNuevo, checkPasswordLenght;
-
-        checkUsuarioNuevo = checkFields(nuevoUsuario, context);
-        checkPasswordLenght = checkFields(nuevoPassword, context);
-        checkPasswordNuevo = checkPassword(nuevoPassword, context);
-
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (checkUsuarioNuevo && checkPasswordNuevo && checkPasswordLenght) {
+                if (checkFields(nuevoUsuario, context1) && checkFields(nuevoPassword, context1) && checkPassword(nuevoPassword, context1)) {
 
                     sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
 
@@ -124,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
                     mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
                 }
+
+                mostrarToast(MainActivity.this, "no pasa if");
 
             }
         });

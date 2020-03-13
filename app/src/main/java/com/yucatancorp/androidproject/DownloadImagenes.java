@@ -20,7 +20,7 @@ public class DownloadImagenes extends AsyncTask<String, Void, Bitmap> {
         String urlString = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+strings[0]+".png";
 
         URL url;
-        HttpURLConnection urlConnection = null;
+        HttpURLConnection urlConnection;
 
         try {
             url = new URL(urlString);
