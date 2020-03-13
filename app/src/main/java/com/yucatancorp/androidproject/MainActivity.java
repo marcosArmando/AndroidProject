@@ -3,6 +3,7 @@ package com.yucatancorp.androidproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,5 +21,11 @@ public class MainActivity extends AppCompatActivity {
         passwordUsuario = findViewById(R.id.ETpassword);
         logIn = findViewById(R.id.btnLogIn);
 
+
     }
+
+    public void checkField(View v){
+
+    }
+
 }
