@@ -44,7 +44,9 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
 
-        Glide.with(context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+position+".png")
+        int realPosition = position + 1;
+
+        Glide.with(context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+realPosition+".png")
                 .centerCrop()
                 .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
