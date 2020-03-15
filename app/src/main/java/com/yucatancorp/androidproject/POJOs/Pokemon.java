@@ -1,8 +1,22 @@
 package com.yucatancorp.androidproject.POJOs;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Pokemon {
+public class Pokemon implements Parcelable {
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+
+        public Pokemon createFromParcel(Parcel in) {
+            return new Pokemon(in);
+        }
+
+        public Pokemon[] newArray(int size) {
+            return new Pokemon[size];
+        }
+    };
 
     @SerializedName("name")
     private String name;
@@ -29,5 +43,20 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Pokemon(Parcel in){
+        this.name = in.readString();
+        this.url = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

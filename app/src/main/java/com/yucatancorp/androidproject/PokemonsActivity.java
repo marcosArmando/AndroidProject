@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.yucatancorp.androidproject.POJOs.Pokemon;
@@ -30,7 +31,7 @@ public class PokemonsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    ArrayList<Pokemon> pokemons;
+    ArrayList<Pokemon> pokemons = new ArrayList<>();
 
     Retrofit retrofit;
 
@@ -41,15 +42,27 @@ public class PokemonsActivity extends AppCompatActivity {
     private int offset;
     private boolean puedeCargar;
 
+    private Parcelable savedRecyclerLayoutState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
+
         recyclerView = findViewById(R.id.recyclerView);
-        pokemons = new ArrayList<>();
 
         int numberofCV = 3;
         offset = 0;
+
+        if (savedInstanceState != null) {
+            pokemons = savedInstanceState.getParcelableArrayList("pokemonsRe");
+            savedRecyclerLayoutState = savedInstanceState.getParcelable("estanciaRV");
+            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this, pokemons);
+
+        } else {
+            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
+        }
+
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
@@ -57,9 +70,7 @@ public class PokemonsActivity extends AppCompatActivity {
         }
         GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, numberofCV);
         recyclerView.setLayoutManager(glm);
-        pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
-        cargarPokemons(offset);
         recyclerView.setAdapter(pokemonAdaptador);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -77,10 +88,7 @@ public class PokemonsActivity extends AppCompatActivity {
                             cargarPokemons(offset);
                         }
                     }
-
                 }
-
-
             }
         });
 
@@ -89,6 +97,7 @@ public class PokemonsActivity extends AppCompatActivity {
 
         sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
         SharedPreferencesActions sharedPreferencesActions = new SharedPreferencesActions(sharedPreferencesStatus);
+
 
         puedeCargar = true;
         cargarPokemons(offset);
@@ -115,5 +124,12 @@ public class PokemonsActivity extends AppCompatActivity {
                 puedeCargar = true;
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("pokemonsRe", pokemons);
+        outState.putParcelable("estanciaRV", recyclerView.getLayoutManager().onSaveInstanceState());
     }
 }

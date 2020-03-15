@@ -29,8 +29,13 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
         pokemons = new ArrayList<>();
     }
 
+    public PokemonAdaptador(Context context, ArrayList<Pokemon> pokemons){
+        this.context = context;
+        this.pokemons = pokemons;
+    }
+
     public void gettingData(ArrayList<Pokemon> pokemons) {
-        this.pokemons.addAll(pokemons);
+        this.pokemons.addAll(this.pokemons.size(), pokemons);
         notifyDataSetChanged();
     }
 
@@ -44,14 +49,19 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
 
-        int realPosition = position + 1;
+        Pokemon pokemonTemp = new Pokemon(pokemons.get(position).getName(), pokemons.get(position).getUrl());
 
-        Glide.with(context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+realPosition+".png")
+        String[] sufijoUrlPokemon = pokemonTemp.getUrl().split("mon/");
+        String[] numeroPokemonString = sufijoUrlPokemon[1].split("/");
+        int numeroPokemon = Integer.valueOf(numeroPokemonString[0]);
+
+        pokemonViewholder.textView.setText(pokemonTemp.getName());
+
+        Glide.with(context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+numeroPokemon+".png")
                 .centerCrop()
                 .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokemonViewholder.imageView);
-        pokemonViewholder.textView.setText(pokemons.get(position).getName());
     }
 
     @Override
