@@ -21,21 +21,19 @@ public class RetrofitActions {
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
-        Call<Resultados> resultadosObtenidos = pokemon.listaPokemons(20, 20);
+        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, 20);
 
-        resultadosObtenidos.enqueue(new Callback<Resultados>() {
+        resultadosObtenidos.enqueue(new Callback<Resultado>() {
             @Override
-            public void onResponse(Call<Resultados> call, Response<Resultados> response) {
+            public void onResponse(Call<Resultado> call, Response<Resultado> response) {
 
-                if (response.isSuccessful()){
+                Resultado resultado = response.body();
+                pokemonsR = resultado.getResults();
 
-                    Resultados resultados = response.body();
-                    pokemonsR = resultados.getPokemons();
-                }
             }
 
             @Override
-            public void onFailure(Call<Resultados> call, Throwable t) {
+            public void onFailure(Call<Resultado> call, Throwable t) {
 
             }
         });
