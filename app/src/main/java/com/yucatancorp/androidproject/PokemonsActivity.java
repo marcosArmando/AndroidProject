@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -44,7 +45,14 @@ public class PokemonsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         pokemons = new ArrayList<>();
 
-        GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, 3);
+        int numberofCV = 3;
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            numberofCV = 5;
+        }
+
+        GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, numberofCV);
         recyclerView.setLayoutManager(glm);
         pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
