@@ -4,28 +4,30 @@ import com.google.gson.annotations.SerializedName;
 
 public class Pokemon {
 
-    private int fotoPokemon;
-    private String nombrePokemon;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("url")
+    private String url;
 
-    public Pokemon(int fotoPokemon, String nombrePokemon){
-        this.fotoPokemon = fotoPokemon;
-        this.nombrePokemon = nombrePokemon;
+    public Pokemon (String name, String url){
+        this.name = name;
+        this.url = url;
     }
 
-    public int getFotoPokemon() {
-        return fotoPokemon;
-
+    public String getUrl() {
+        return url;
     }
 
-    public void setFotoPokemon(int fotoPokemon) {
-        this.fotoPokemon = fotoPokemon;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getNombrePokemon() {
-        return nombrePokemon;
+    public String getName() {
+
+        return name;
     }
 
-    public void setNombrePokemon(String nombrePokemon) {
-        this.nombrePokemon = nombrePokemon;
+    public void setName(String name) {
+        this.name = name;
     }
 }
