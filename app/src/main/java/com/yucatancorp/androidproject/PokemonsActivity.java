@@ -31,21 +31,21 @@ public class PokemonsActivity extends AppCompatActivity {
 
     private String baseURL = "https://pokeapi.co/api/v2/";
 
+    PokemonAdaptador pokemonAdaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
 
-        cargarPokemons();
         recyclerView = findViewById(R.id.recyclerView);
         pokemons = new ArrayList<>();
 
         GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, 3);
         recyclerView.setLayoutManager(glm);
-        PokemonAdaptador pokemonAdaptador = new PokemonAdaptador(pokemons);
+        pokemonAdaptador = new PokemonAdaptador();
 
-
+        cargarPokemons();
         recyclerView.setAdapter(pokemonAdaptador);
 
         sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
@@ -65,7 +65,7 @@ public class PokemonsActivity extends AppCompatActivity {
             public void onResponse(Call<Resultado> call, Response<Resultado> response) {
 
                 Resultado resultado = response.body();
-                pokemons = resultado.getResults();
+                pokemonAdaptador.gettingData(resultado.getResults());
 
 
                 Log.i("pokemons", pokemons.get(0).getName());
