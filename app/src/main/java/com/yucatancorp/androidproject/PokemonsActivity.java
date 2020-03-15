@@ -38,13 +38,13 @@ public class PokemonsActivity extends AppCompatActivity {
 
     PokemonAdaptador pokemonAdaptador;
 
-    int offset;
+    private int offset;
+    private boolean puedeCargar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
-
         recyclerView = findViewById(R.id.recyclerView);
         pokemons = new ArrayList<>();
 
@@ -55,11 +55,11 @@ public class PokemonsActivity extends AppCompatActivity {
 
             numberofCV = 5;
         }
-
         GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, numberofCV);
         recyclerView.setLayoutManager(glm);
         pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
+        cargarPokemons(offset);
         recyclerView.setAdapter(pokemonAdaptador);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -67,12 +67,17 @@ public class PokemonsActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) {
+                if(dy > 0){
+
+                    if (puedeCargar) {
 
                         if ((glm.getChildCount() + glm.getItemCount()) >= glm.findFirstCompletelyVisibleItemPosition()) {
-                            offset += 20;
+                            puedeCargar = false;
+                            offset += 50;
                             cargarPokemons(offset);
                         }
+                    }
+
                 }
 
 
@@ -85,34 +90,30 @@ public class PokemonsActivity extends AppCompatActivity {
         sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
         SharedPreferencesActions sharedPreferencesActions = new SharedPreferencesActions(sharedPreferencesStatus);
 
-
+        puedeCargar = true;
         cargarPokemons(offset);
     }
 
     public void cargarPokemons(int offset) {
 
+        retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
-        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, offset);
-
+        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(50, offset);
         resultadosObtenidos.enqueue(new Callback<Resultado>() {
             @Override
             public void onResponse(Call<Resultado> call, Response<Resultado> response) {
-
+                puedeCargar = true;
                 if (response.isSuccessful()) {
-
                     Resultado resultado = response.body();
                     ArrayList<Pokemon> pokemonsD = resultado.getResults();
                     pokemonAdaptador.gettingData(pokemonsD);
-                    Log.i("pokemons", pokemonsD.get(0).getName());
                 }
             }
-
             @Override
             public void onFailure(Call<Resultado> call, Throwable t) {
-
+                puedeCargar = true;
             }
         });
     }
 }
-
