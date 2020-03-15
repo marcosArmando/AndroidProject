@@ -38,6 +38,8 @@ public class PokemonsActivity extends AppCompatActivity {
 
     PokemonAdaptador pokemonAdaptador;
 
+    int offset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class PokemonsActivity extends AppCompatActivity {
         pokemons = new ArrayList<>();
 
         int numberofCV = 3;
-        int offset = 0;
+        offset = 0;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
@@ -58,7 +60,6 @@ public class PokemonsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(glm);
         pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
-        cargarPokemons(offset);
         recyclerView.setAdapter(pokemonAdaptador);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -66,18 +67,30 @@ public class PokemonsActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                cargarPokemons(offset+20);
+                if (dy > 0) {
+
+                        if ((glm.getChildCount() + glm.getItemCount()) >= glm.findFirstCompletelyVisibleItemPosition()) {
+                            offset += 20;
+                            cargarPokemons(offset);
+                        }
+                }
+
+
             }
         });
+
+
+        retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
 
         sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
         SharedPreferencesActions sharedPreferencesActions = new SharedPreferencesActions(sharedPreferencesStatus);
 
+
+        cargarPokemons(offset);
     }
 
     public void cargarPokemons(int offset) {
 
-        retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
         Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, offset);
