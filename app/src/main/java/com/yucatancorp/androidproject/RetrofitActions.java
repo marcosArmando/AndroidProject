@@ -12,8 +12,11 @@ public class RetrofitActions {
 
     private Retrofit retrofit;
     private String baseURL = "https://pokeapi.co/api/v2/";
+    private ArrayList<Pokemon> pokemonsR;
 
-    public void cargarPokemons() {
+    public void cargarPokemons(ArrayList<Pokemon> pokemons) {
+
+        pokemonsR = pokemons;
 
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
@@ -27,7 +30,7 @@ public class RetrofitActions {
                 if (response.isSuccessful()){
 
                     Resultados resultados = response.body();
-                    ArrayList<Pokemon> pokemons = resultados.getPokemons();
+                    pokemonsR = resultados.getPokemons();
                 }
             }
 
@@ -38,4 +41,7 @@ public class RetrofitActions {
         });
     }
 
+    public ArrayList<Pokemon> getPokemonsR() {
+        return pokemonsR;
+    }
 }
