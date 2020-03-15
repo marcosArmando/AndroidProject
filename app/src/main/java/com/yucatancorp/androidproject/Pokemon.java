@@ -1,5 +1,7 @@
 package com.yucatancorp.androidproject;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Pokemon {
 
     private int fotoPokemon;

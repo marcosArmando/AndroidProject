@@ -34,18 +34,14 @@ public class PokemonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
 
+        RetrofitActions retrofitActions = new RetrofitActions();
+        retrofitActions.cargarPokemons(pokemons);
         recyclerView = findViewById(R.id.recyclerView);
         pokemons = new ArrayList<>();
 
-        pokemons.add(new Pokemon(0, "n"));
-        pokemons.add(new Pokemon(0, "n"));
-        pokemons.add(new Pokemon(0, "n"));
-        pokemons.add(new Pokemon(0, "n"));
-        pokemons.add(new Pokemon(0, "n"));
-
         GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, 3);
         recyclerView.setLayoutManager(glm);
-        PokemonAdaptador pokemonAdaptador = new PokemonAdaptador(pokemons);
+        PokemonAdaptador pokemonAdaptador = new PokemonAdaptador(retrofitActions.getPokemonsR());
 
         recyclerView.setAdapter(pokemonAdaptador);
 
@@ -55,3 +51,4 @@ public class PokemonsActivity extends AppCompatActivity {
     }
 
 }
+
