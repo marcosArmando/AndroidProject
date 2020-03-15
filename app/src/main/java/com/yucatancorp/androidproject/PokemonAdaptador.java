@@ -1,5 +1,7 @@
 package com.yucatancorp.androidproject;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.TransitionOptions;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.yucatancorp.androidproject.POJOs.Pokemon;
+
 import java.util.ArrayList;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{
 
     private ArrayList<Pokemon> pokemons;
+    private Context context;
 
-    public PokemonAdaptador(){
+    public PokemonAdaptador(Context context){
+        this.context = context;
         pokemons = new ArrayList<>();
     }
 
@@ -32,6 +43,12 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
+
+        Glide.with(context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+position+".png")
+                .centerCrop()
+                .transition(withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(pokemonViewholder.imageView);
         pokemonViewholder.textView.setText(pokemons.get(position).getName());
     }
 

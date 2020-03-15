@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.yucatancorp.androidproject.POJOs.Pokemon;
+import com.yucatancorp.androidproject.POJOs.Resultado;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -43,7 +46,7 @@ public class PokemonsActivity extends AppCompatActivity {
 
         GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, 3);
         recyclerView.setLayoutManager(glm);
-        pokemonAdaptador = new PokemonAdaptador();
+        pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
         cargarPokemons();
         recyclerView.setAdapter(pokemonAdaptador);
@@ -58,7 +61,7 @@ public class PokemonsActivity extends AppCompatActivity {
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
-        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, 20);
+        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(30, 0);
 
         resultadosObtenidos.enqueue(new Callback<Resultado>() {
             @Override

@@ -1,6 +1,7 @@
-package com.yucatancorp.androidproject;
+package com.yucatancorp.androidproject.POJOs;
 
 import com.google.gson.annotations.SerializedName;
+import com.yucatancorp.androidproject.POJOs.Pokemon;
 
 import java.util.ArrayList;
 

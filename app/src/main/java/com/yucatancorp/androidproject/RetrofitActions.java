@@ -1,5 +1,8 @@
 package com.yucatancorp.androidproject;
 
+import com.yucatancorp.androidproject.POJOs.Pokemon;
+import com.yucatancorp.androidproject.POJOs.Resultado;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -21,7 +24,7 @@ public class RetrofitActions {
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
-        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, 20);
+        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(0,0);
 
         resultadosObtenidos.enqueue(new Callback<Resultado>() {
             @Override
@@ -31,7 +34,6 @@ public class RetrofitActions {
                 pokemonsR = resultado.getResults();
 
             }
-
             @Override
             public void onFailure(Call<Resultado> call, Throwable t) {
 
