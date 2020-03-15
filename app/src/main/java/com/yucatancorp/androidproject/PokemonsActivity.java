@@ -1,5 +1,6 @@
 package com.yucatancorp.androidproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,7 @@ public class PokemonsActivity extends AppCompatActivity {
         pokemons = new ArrayList<>();
 
         int numberofCV = 3;
+        int offset = 0;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
@@ -56,20 +58,29 @@ public class PokemonsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(glm);
         pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
 
-        cargarPokemons();
+        cargarPokemons(offset);
         recyclerView.setAdapter(pokemonAdaptador);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                cargarPokemons(offset+20);
+            }
+        });
 
         sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
         SharedPreferencesActions sharedPreferencesActions = new SharedPreferencesActions(sharedPreferencesStatus);
 
     }
 
-    public void cargarPokemons() {
+    public void cargarPokemons(int offset) {
 
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         PokemonGets pokemon = retrofit.create(PokemonGets.class);
 
-        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(30, 0);
+        Call<Resultado> resultadosObtenidos = pokemon.listaPokemons(20, offset);
 
         resultadosObtenidos.enqueue(new Callback<Resultado>() {
             @Override
