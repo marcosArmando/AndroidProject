@@ -66,6 +66,7 @@ public class PokemonsActivity extends AppCompatActivity {
                 Resultado resultado = response.body();
                 pokemons = resultado.getResults();
 
+
             }
 
             @Override
@@ -73,10 +74,6 @@ public class PokemonsActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public ArrayList<Pokemon> getPokemonsR() {
-        return pokemons;
     }
 
 }

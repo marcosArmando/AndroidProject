@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{ private ArrayList<Pokemon> pokemons;
+public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.PokemonViewHolder>{
+
+    private ArrayList<Pokemon> pokemons;
 
     public PokemonAdaptador(ArrayList<Pokemon> pokemons){
         this.pokemons = pokemons;
@@ -28,6 +30,7 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder pokemonViewholder, int position) {
 
+        pokemonViewholder.textView.setText(pokemons.get(position).getName());
 
     }
 
