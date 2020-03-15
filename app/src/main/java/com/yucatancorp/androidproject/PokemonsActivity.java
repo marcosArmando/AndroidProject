@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class PokemonsActivity extends AppCompatActivity {
                 pokemons = resultado.getResults();
 
 
+                Log.i("pokemons", pokemons.get(0).getName());
             }
 
             @Override
