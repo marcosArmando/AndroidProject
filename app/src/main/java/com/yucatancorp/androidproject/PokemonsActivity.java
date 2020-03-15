@@ -64,11 +64,13 @@ public class PokemonsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Resultado> call, Response<Resultado> response) {
 
-                Resultado resultado = response.body();
-                pokemonAdaptador.gettingData(resultado.getResults());
+                if (response.isSuccessful()) {
 
-
-                Log.i("pokemons", pokemons.get(0).getName());
+                    Resultado resultado = response.body();
+                    ArrayList<Pokemon> pokemonsD = resultado.getResults();
+                    pokemonAdaptador.gettingData(pokemonsD);
+                    Log.i("pokemons", pokemonsD.get(0).getName());
+                }
             }
 
             @Override
@@ -77,6 +79,5 @@ public class PokemonsActivity extends AppCompatActivity {
             }
         });
     }
-
 }
 
