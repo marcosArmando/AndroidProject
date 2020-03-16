@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +23,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.yucatancorp.androidproject.MainActivity.STATUS;
+
 public class PokemonsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -37,10 +41,16 @@ public class PokemonsActivity extends AppCompatActivity {
     private boolean puedeCargar;
     public static final String TAG = "estadoRV";
 
+    private SharedPreferencesActions sharedPreferencesActions;
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences(STATUS, 0);
+        sharedPreferencesActions = new SharedPreferencesActions(sharedPreferences);
 
         int numberofCV = 3;
         offset = 0;
@@ -135,8 +145,7 @@ public class PokemonsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.logOut) {
-
-
+            sharedPreferencesActions.changeStatus(false);
             IntentsAActivities.irLogInActivity(PokemonsActivity.this);
             finish();
             return true;
