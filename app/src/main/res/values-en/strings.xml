@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidProject</string>
+    <string name="password">password</string>
+    <string name="logIn">LogIn</string>
+    <string name="email">email</string>
+    <string name="campoVacio">Please, type a correct data.</string>
+    <string name="ingreseMail">Type an email.</string>
+    <string name="errorCrede">Ups! There is an error in you credentials.</string>
+    <string name="crearUsuario">Create user</string>
+    <string name="nuevoUser">New user</string>
+    <string name="nuevoPassword">New password</string>
+    <string name="registrar">Register</string>
+    <string name="contraMayor5">Password must have more than five characters.</string>
+    <string name="necesitaContraMayor">You need a password with more than five characters</string>
+    <string name="UsuarioExito">New user created successfully, now Log In!</string>
+    <string name="pokemon">Pokemon!</string>
+    <string name="LogOut">LogOut</string>
+</resources>

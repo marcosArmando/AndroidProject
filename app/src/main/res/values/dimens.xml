@@ -10,4 +10,5 @@
     <dimen name="marginNU">20dp</dimen>
     <dimen name="altoCV">150dp</dimen>
     <dimen name="altoImagenCV">55dp</dimen>
+    <dimen name="margenLeft">20dp</dimen>
 </resources>

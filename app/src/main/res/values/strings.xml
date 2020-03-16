@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">AndroidProject</string>
-    <string name="password">password</string>
-    <string name="logIn">LogIn</string>
-    <string name="email">email</string>
+    <string name="password">Contraseña</string>
+    <string name="logIn">Entrar</string>
+    <string name="email">Correo electrónico</string>
     <string name="campoVacio">Por favor, ingrese el dato correspondiente.</string>
     <string name="ingreseMail">Ingrese un correo electrónico.</string>
-    <string name="errorCrede">Hay un error en sus credenciales.</string>
+    <string name="errorCrede">¡Ups! Hay un error en sus credenciales.</string>
     <string name="crearUsuario">Crear usuario</string>
     <string name="nuevoUser">Nuevo usuario</string>
-    <string name="nuevoPassword">Nuevo password</string>
+    <string name="nuevoPassword">Nueva contraseña</string>
     <string name="registrar">Registrar</string>
     <string name="contraMayor5">La contraseña debe ser mayor a 5 caracteres.</string>
     <string name="necesitaContraMayor">Necesita una contraseña de más de 5 caracteres</string>
-    <string name="UsuarioExito">Usuario creado con éxtio, haga logIn</string>
+    <string name="UsuarioExito">Usuario creado con éxtio, entre!</string>
     <string name="pokemon">Pokemon!</string>
-    <string name="LogOut">LogOut</string>
+    <string name="LogOut">Salir</string>
 </resources>
