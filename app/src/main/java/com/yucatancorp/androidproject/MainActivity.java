@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.yucatancorp.androidproject.IntentsAActivities.irLogInActivity;
 import static com.yucatancorp.androidproject.IntentsAActivities.irPokemonActivity;
 import static com.yucatancorp.androidproject.checkUserInput.checkFields;
 import static com.yucatancorp.androidproject.checkUserInput.checkPassword;

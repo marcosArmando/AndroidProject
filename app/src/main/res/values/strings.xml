@@ -14,4 +14,5 @@
     <string name="necesitaContraMayor">Necesita una contraseña de más de 5 caracteres</string>
     <string name="UsuarioExito">Usuario creado con éxtio, haga logIn</string>
     <string name="pokemon">Pokemon!</string>
+    <string name="LogOut">LogOut</string>
 </resources>

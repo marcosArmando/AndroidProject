@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.yucatancorp.androidproject.POJOs.Pokemon;
 import com.yucatancorp.androidproject.POJOs.Resultado;
@@ -87,13 +90,7 @@ public class PokemonsActivity extends AppCompatActivity {
 
         puedeCargar = true;
         cargarPokemons(offset);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        recyclerView = findViewById(R.id.recyclerView);
     }
 
     public void cargarPokemons(int offset) {
@@ -125,5 +122,27 @@ public class PokemonsActivity extends AppCompatActivity {
         outState.putParcelableArrayList("pokemonsRe", pokemons);
         outState.putParcelable(TAG, recyclerView.getLayoutManager().onSaveInstanceState());
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.logOut) {
+
+
+            IntentsAActivities.irLogInActivity(PokemonsActivity.this);
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+
     }
 }
