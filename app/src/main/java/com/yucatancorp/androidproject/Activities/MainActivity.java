@@ -14,11 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yucatancorp.androidproject.R;
-import com.yucatancorp.androidproject.SharedPreferencesActions;
+import com.yucatancorp.androidproject.miscellaneousActions.SharedPreferencesActions;
 
-import static com.yucatancorp.androidproject.IntentsAActivities.irPokemonActivity;
-import static com.yucatancorp.androidproject.checkUserInput.checkFields;
-import static com.yucatancorp.androidproject.checkUserInput.checkPassword;
+import static com.yucatancorp.androidproject.miscellaneousActions.IntentsAActivities.irPokemonActivity;
+import static com.yucatancorp.androidproject.miscellaneousActions.checkUserInput.checkFields;
+import static com.yucatancorp.androidproject.miscellaneousActions.checkUserInput.checkPassword;
 
 public class MainActivity extends AppCompatActivity {
 

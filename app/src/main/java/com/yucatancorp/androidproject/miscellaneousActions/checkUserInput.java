@@ -1,9 +1,11 @@
-package com.yucatancorp.androidproject;
+package com.yucatancorp.androidproject.miscellaneousActions;
 
 import android.content.Context;
 import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.yucatancorp.androidproject.R;
 
 public class checkUserInput {
 

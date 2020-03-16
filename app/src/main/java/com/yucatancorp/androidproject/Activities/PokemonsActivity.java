@@ -12,13 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.yucatancorp.androidproject.IntentsAActivities;
+import com.yucatancorp.androidproject.miscellaneousActions.IntentsAActivities;
 import com.yucatancorp.androidproject.POJOs.Pokemon;
 import com.yucatancorp.androidproject.POJOs.Resultado;
 import com.yucatancorp.androidproject.PokemonAdaptador;
-import com.yucatancorp.androidproject.PokemonGets;
+import com.yucatancorp.androidproject.miscellaneousActions.PokemonGets;
 import com.yucatancorp.androidproject.R;
-import com.yucatancorp.androidproject.SharedPreferencesActions;
+import com.yucatancorp.androidproject.miscellaneousActions.SharedPreferencesActions;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.yucatancorp.androidproject;
+package com.yucatancorp.androidproject.miscellaneousActions;
 
 import android.content.Context;
 import android.content.Intent;
