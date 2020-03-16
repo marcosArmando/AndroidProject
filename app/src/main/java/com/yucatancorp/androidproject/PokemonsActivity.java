@@ -4,12 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 
 import com.yucatancorp.androidproject.POJOs.Pokemon;
 import com.yucatancorp.androidproject.POJOs.Resultado;
@@ -22,12 +18,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.yucatancorp.androidproject.MainActivity.STATUS;
-
 public class PokemonsActivity extends AppCompatActivity {
-
-    SharedPreferences sharedPreferencesStatus;
-    SharedPreferencesActions sharedPreferencesActions;
 
     RecyclerView recyclerView;
 
@@ -41,37 +32,37 @@ public class PokemonsActivity extends AppCompatActivity {
 
     private int offset;
     private boolean puedeCargar;
-
-    private Parcelable savedRecyclerLayoutState;
+    public static final String TAG = "estadoRV";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
 
-        recyclerView = findViewById(R.id.recyclerView);
-
         int numberofCV = 3;
         offset = 0;
 
-        if (savedInstanceState != null) {
-            pokemons = savedInstanceState.getParcelableArrayList("pokemonsRe");
-            savedRecyclerLayoutState = savedInstanceState.getParcelable("estanciaRV");
-            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this, pokemons);
-
-        } else {
-            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
-        }
-
-
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
             numberofCV = 5;
         }
-        GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, numberofCV);
-        recyclerView.setLayoutManager(glm);
 
-        recyclerView.setAdapter(pokemonAdaptador);
+        GridLayoutManager glm = new GridLayoutManager(PokemonsActivity.this, numberofCV);
+
+        if (savedInstanceState != null) {
+            recyclerView = findViewById(R.id.recyclerView);
+            pokemons = savedInstanceState.getParcelableArrayList("pokemonsRe");
+            if (pokemons == null) {
+
+            }
+            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this, pokemons);
+            recyclerView.setLayoutManager(glm);
+            recyclerView.setAdapter(pokemonAdaptador);
+        } else {
+            recyclerView = findViewById(R.id.recyclerView);
+            pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this);
+            recyclerView.setLayoutManager(glm);
+            recyclerView.setAdapter(pokemonAdaptador);
+        }
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -92,15 +83,17 @@ public class PokemonsActivity extends AppCompatActivity {
             }
         });
 
-
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
-
-        sharedPreferencesStatus = getApplicationContext().getSharedPreferences(STATUS, 0);
-        SharedPreferencesActions sharedPreferencesActions = new SharedPreferencesActions(sharedPreferencesStatus);
-
 
         puedeCargar = true;
         cargarPokemons(offset);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        recyclerView = findViewById(R.id.recyclerView);
     }
 
     public void cargarPokemons(int offset) {
@@ -128,8 +121,9 @@ public class PokemonsActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
+        pokemons = pokemonAdaptador.listaPokemons();
         outState.putParcelableArrayList("pokemonsRe", pokemons);
-        outState.putParcelable("estanciaRV", recyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putParcelable(TAG, recyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
     }
 }

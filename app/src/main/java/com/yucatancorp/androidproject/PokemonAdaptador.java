@@ -34,6 +34,10 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
         this.pokemons = pokemons;
     }
 
+    public ArrayList<Pokemon> listaPokemons(){
+        return this.pokemons;
+    }
+
     public void gettingData(ArrayList<Pokemon> pokemons) {
         this.pokemons.addAll(this.pokemons.size(), pokemons);
         notifyDataSetChanged();
