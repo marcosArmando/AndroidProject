@@ -1,4 +1,4 @@
-package com.yucatancorp.androidproject;
+package com.yucatancorp.androidproject.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.yucatancorp.androidproject.IntentsAActivities;
 import com.yucatancorp.androidproject.POJOs.Pokemon;
 import com.yucatancorp.androidproject.POJOs.Resultado;
+import com.yucatancorp.androidproject.PokemonAdaptador;
+import com.yucatancorp.androidproject.PokemonGets;
+import com.yucatancorp.androidproject.R;
+import com.yucatancorp.androidproject.SharedPreferencesActions;
 
 import java.util.ArrayList;
 
@@ -23,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.yucatancorp.androidproject.MainActivity.STATUS;
+import static com.yucatancorp.androidproject.Activities.MainActivity.STATUS;
 
 public class PokemonsActivity extends AppCompatActivity {
 

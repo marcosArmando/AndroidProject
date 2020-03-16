@@ -2,8 +2,7 @@ package com.yucatancorp.androidproject;
 
 import android.content.SharedPreferences;
 
-import static com.yucatancorp.androidproject.MainActivity.STATUS;
-import static com.yucatancorp.androidproject.MainActivity.USUARIOLOGUEADO;
+import static com.yucatancorp.androidproject.Activities.MainActivity.STATUS;
 
 public class SharedPreferencesActions {
 

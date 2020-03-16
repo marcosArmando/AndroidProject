@@ -1,4 +1,4 @@
-package com.yucatancorp.androidproject;
+package com.yucatancorp.androidproject.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.yucatancorp.androidproject.IntentsAActivities.irLogInActivity;
+import com.yucatancorp.androidproject.R;
+import com.yucatancorp.androidproject.SharedPreferencesActions;
+
 import static com.yucatancorp.androidproject.IntentsAActivities.irPokemonActivity;
 import static com.yucatancorp.androidproject.checkUserInput.checkFields;
 import static com.yucatancorp.androidproject.checkUserInput.checkPassword;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String NOMBREUSUARIO = "nombreUsuario";
     public final static String PASSWORDUSUARIO = "passwordUsuario";
-    public final static String USUARIOLOGUEADO = "usurioLogueado";
     public final static String USUARIOS = "usurios";
     public final static String STATUS = "status";
 
@@ -38,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nombreUsuario = findViewById(R.id.ETnombre);
+        passwordUsuario = findViewById(R.id.ETpassword);
+        logIn = findViewById(R.id.btnLogIn);
+        crearUsuario = findViewById(R.id.TVcrearUsuario);
+
 
         if (savedInstanceState != null) {
 
@@ -55,11 +62,6 @@ public class MainActivity extends AppCompatActivity {
             irPokemonActivity(MainActivity.this);
             finish();
         }
-
-        nombreUsuario = findViewById(R.id.ETnombre);
-        passwordUsuario = findViewById(R.id.ETpassword);
-        logIn = findViewById(R.id.btnLogIn);
-        crearUsuario = findViewById(R.id.TVcrearUsuario);
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,10 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
         outState.putString(NOMBREUSUARIO, nombreUsuario.getText().toString());
         outState.putString(PASSWORDUSUARIO, passwordUsuario.getText().toString());
-
-        super.onSaveInstanceState(outState);
 
     }
 }
