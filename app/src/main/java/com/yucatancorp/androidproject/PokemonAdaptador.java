@@ -39,7 +39,7 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
     }
 
     public void gettingData(ArrayList<Pokemon> pokemons) {
-        this.pokemons.addAll(this.pokemons.size(), pokemons);
+        this.pokemons.addAll(pokemons);
         notifyDataSetChanged();
     }
 

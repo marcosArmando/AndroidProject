@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yucatancorp.androidproject.Activities.PokemonsActivity;
@@ -51,6 +52,8 @@ public class PokemonsFragment extends Fragment {
     private boolean puedeCargar;
     public static final String TAG = "estadoRV";
 
+    private ProgressBar myProgressBar;
+
     private SharedPreferencesActions sharedPreferencesActions;
     private SharedPreferences sharedPreferences;
 
@@ -67,6 +70,9 @@ public class PokemonsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_pokemons, container, false);
 
         pokemons = new ArrayList<>();
+
+        myProgressBar = v.findViewById(R.id.myProgressBar);
+
         sharedPreferences = getContext().getSharedPreferences(STATUS, 0);
         sharedPreferencesActions = new SharedPreferencesActions(sharedPreferences);
 
@@ -114,7 +120,6 @@ public class PokemonsFragment extends Fragment {
 
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
 
-        puedeCargar = true;
         cargarPokemons(offset);
 
         return v;
@@ -136,6 +141,8 @@ public class PokemonsFragment extends Fragment {
                     Resultado resultado = response.body();
                     ArrayList<Pokemon> pokemonsD = resultado.getResults();
                     pokemonAdaptador.gettingData(pokemonsD);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    myProgressBar.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -147,10 +154,8 @@ public class PokemonsFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        pokemons = pokemonAdaptador.listaPokemons();
         outState.putParcelableArrayList("pokemonsRe", pokemons);
         outState.putParcelable(TAG, recyclerView.getLayoutManager().onSaveInstanceState());
-        super.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 }

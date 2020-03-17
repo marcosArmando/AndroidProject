@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 sharedPreferencesActions.changeStatus(true);
                 irPokemonActivity(MainActivity.this);
+                finish();
             } else {
 
                 nombreUsuario.setText("");
