@@ -69,9 +69,6 @@ public class PokemonsActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             recyclerView = findViewById(R.id.recyclerView);
             pokemons = savedInstanceState.getParcelableArrayList("pokemonsRe");
-            if (pokemons == null) {
-
-            }
             pokemonAdaptador = new PokemonAdaptador(PokemonsActivity.this, pokemons);
             recyclerView.setLayoutManager(glm);
             recyclerView.setAdapter(pokemonAdaptador);

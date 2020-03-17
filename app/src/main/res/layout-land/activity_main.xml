@@ -30,8 +30,7 @@
                 android:layout_height="@dimen/altoETMain"
                 android:layout_marginBottom="@dimen/ETmargenB"
                 android:hint="@string/password"
-                android:inputType="textPassword"
-                android:layout_below="@id/ETnombre"/>
+                android:inputType="textPassword"/>
 
 
         </LinearLayout>

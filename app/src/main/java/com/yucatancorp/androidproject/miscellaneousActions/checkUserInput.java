@@ -31,6 +31,22 @@ public class checkUserInput {
         return true;
     }
 
+    public static boolean checkFields(String texto){
+
+        return !texto.isEmpty();
+
+    }
+
+    public static boolean checkEmailFormat(String texto){
+        return Patterns.EMAIL_ADDRESS.matcher(texto).matches();
+    }
+
+    public static boolean checkPassword(String texto) {
+
+        return !(texto.length() < 5);
+
+    }
+
     public static boolean checkPassword(EditText v, Context context) {
 
         String passwordTemp = v.getText().toString();

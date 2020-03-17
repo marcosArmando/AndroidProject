@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,35 +62,27 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        logIn.setOnClickListener(v -> {
 
-                if (checkFields(nombreUsuario, MainActivity.this) && checkFields(passwordUsuario, MainActivity.this)) {
+            if (checkFields(nombreUsuario, MainActivity.this) && checkFields(passwordUsuario, MainActivity.this)) {
 
-                    if (passwordUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
+                if (passwordUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
 
-                        sharedPreferencesActions.changeStatus(true);
-                        irPokemonActivity(MainActivity.this);
-                    }
-
-                } else {
-
-                    nombreUsuario.setText("");
-                    passwordUsuario.setText("");
-
-                    mostrarToast(MainActivity.this, getResources().getString(R.string.errorCrede));
+                    sharedPreferencesActions.changeStatus(true);
+                    irPokemonActivity(MainActivity.this);
                 }
 
+            } else {
+
+                nombreUsuario.setText("");
+                passwordUsuario.setText("");
+
+                mostrarToast(MainActivity.this, getResources().getString(R.string.errorCrede));
             }
+
         });
 
-        crearUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registrarUsuario(MainActivity.this);
-            }
-        });
+        crearUsuario.setOnClickListener(v -> registrarUsuario(MainActivity.this));
     }
 
 
@@ -106,22 +97,19 @@ public class MainActivity extends AppCompatActivity {
 
         Button registrar = dialog.findViewById(R.id.btnNuevoUser);
 
-        registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        registrar.setOnClickListener(v -> {
 
-                if (checkFields(nuevoUsuario, context1) && checkFields(nuevoPassword, context1) && checkPassword(nuevoPassword, context1)) {
+            if (checkFields(nuevoUsuario, context1) && checkFields(nuevoPassword, context1) && checkPassword(nuevoPassword, context1)) {
 
-                    sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
+                sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
 
-                    dialog.dismiss();
+                dialog.dismiss();
 
-                    mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
-                }
-
-                mostrarToast(MainActivity.this, "no pasa if");
-
+                mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
             }
+
+            mostrarToast(MainActivity.this, "no pasa if");
+
         });
 
         dialog.show();
