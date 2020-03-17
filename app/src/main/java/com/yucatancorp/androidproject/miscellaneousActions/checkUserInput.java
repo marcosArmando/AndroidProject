@@ -31,6 +31,7 @@ public class checkUserInput {
         return true;
     }
 
+/*
     public static boolean checkFields(String texto){
 
         return !texto.isEmpty();
@@ -46,6 +47,7 @@ public class checkUserInput {
         return !(texto.length() < 5);
 
     }
+*/
 
     public static boolean checkPassword(EditText v, Context context) {
 

@@ -7,6 +7,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,7 +25,7 @@ import static com.yucatancorp.androidproject.miscellaneousActions.checkUserInput
 public class MainActivity extends AppCompatActivity {
 
     EditText nombreUsuario, passwordUsuario;
-    Button logIn;
+    Button BtnlogIn;
     TextView crearUsuario;
 
     SharedPreferences sharedPreferences, sharedPreferencesStatus;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         nombreUsuario = findViewById(R.id.ETnombre);
         passwordUsuario = findViewById(R.id.ETpassword);
-        logIn = findViewById(R.id.btnLogIn);
+        BtnlogIn = findViewById(R.id.btnLogIn);
         crearUsuario = findViewById(R.id.TVcrearUsuario);
 
 
@@ -62,16 +65,24 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        logIn.setOnClickListener(v -> {
 
-            if (checkFields(nombreUsuario, MainActivity.this) && checkFields(passwordUsuario, MainActivity.this)) {
+        crearUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrarUsuario(MainActivity.this);
+            }
+        });
+    }
 
-                if (passwordUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))){
+    public void hacerLogIn(View view) {
 
-                    sharedPreferencesActions.changeStatus(true);
-                    irPokemonActivity(MainActivity.this);
-                }
 
+        if (checkFields(nombreUsuario, MainActivity.this) && checkFields(passwordUsuario, MainActivity.this)) {
+
+            if (passwordUsuario.getText().toString().equals(sharedPreferences.getString(nombreUsuario.getText().toString(), null))) {
+
+                sharedPreferencesActions.changeStatus(true);
+                irPokemonActivity(MainActivity.this);
             } else {
 
                 nombreUsuario.setText("");
@@ -79,10 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
                 mostrarToast(MainActivity.this, getResources().getString(R.string.errorCrede));
             }
+        }  else {
 
-        });
+            nombreUsuario.setText("");
+            passwordUsuario.setText("");
 
-        crearUsuario.setOnClickListener(v -> registrarUsuario(MainActivity.this));
+            mostrarToast(MainActivity.this, getResources().getString(R.string.errorCrede));
+        }
     }
 
 
@@ -91,25 +105,27 @@ public class MainActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(context);
         final Context context1 = context;
 
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.nuevousuario);
         final EditText nuevoUsuario = dialog.findViewById(R.id.newUsuario);
         final EditText nuevoPassword = dialog.findViewById(R.id.newPassword);
 
         Button registrar = dialog.findViewById(R.id.btnNuevoUser);
 
-        registrar.setOnClickListener(v -> {
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            if (checkFields(nuevoUsuario, context1) && checkFields(nuevoPassword, context1) && checkPassword(nuevoPassword, context1)) {
+                if (checkFields(nuevoUsuario, context1) && checkFields(nuevoPassword, context1) && checkPassword(nuevoPassword, context1)) {
 
-                sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
+                    sharedPreferencesActions.registrarUsuarioNuevo(nuevoUsuario.getText().toString(), nuevoPassword.getText().toString());
 
-                dialog.dismiss();
+                    dialog.dismiss();
 
-                mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
+                    mostrarToast(MainActivity.this, getResources().getString(R.string.UsuarioExito));
+                }
+
             }
-
-            mostrarToast(MainActivity.this, "no pasa if");
-
         });
 
         dialog.show();

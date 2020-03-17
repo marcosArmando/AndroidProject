@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="10">
+    android:layout_weight="10"
+    android:background="@color/colorBackground">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -48,7 +49,9 @@
             android:layout_width="@dimen/anchoBtnMain"
             android:layout_height="@dimen/altoBtnMain"
             android:text="@string/logIn"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:onClick="hacerLogIn"
+            android:background="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/TVcrearUsuario"
@@ -61,7 +64,8 @@
             android:focusable="true"
             android:layout_below="@id/btnLogIn"
             android:layout_marginTop="@dimen/marginNU"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorAccent"/>
 
     </RelativeLayout>
 

@@ -15,4 +15,8 @@
     <string name="UsuarioExito">Usuario creado con éxtio, entre!</string>
     <string name="pokemon">Pokemon!</string>
     <string name="LogOut">Salir</string>
+    <string name="darkMode">Dark Mode</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

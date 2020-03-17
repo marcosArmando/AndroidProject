@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark">
 
     <EditText
         android:id="@+id/newUsuario"
         android:layout_width="match_parent"
         android:layout_height="@dimen/altoETMain"
-        android:layout_margin="@dimen/marginNU"
+        android:layout_marginRight="@dimen/ETmarginSide"
+        android:layout_marginLeft="@dimen/ETmarginSide"
         android:hint="@string/nuevoUser"
         android:inputType="textEmailAddress"/>
 
@@ -15,16 +17,22 @@
         android:id="@+id/newPassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/altoETMain"
-        android:layout_margin="@dimen/marginNU"
+        android:layout_marginRight="@dimen/ETmarginSide"
+        android:layout_marginLeft="@dimen/ETmarginSide"
         android:hint="@string/nuevoPassword"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:layout_below="@id/newUsuario"/>
 
     <Button
         android:id="@+id/btnNuevoUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginNU"
+        android:layout_marginRight="@dimen/ETmarginSide"
+        android:layout_marginLeft="@dimen/ETmarginSide"
+         android:layout_marginBottom="@dimen/ETmarginSide"
         android:text="@string/registrar"
-        android:layout_gravity="end"/>
+        android:layout_below="@id/newPassword"
+        android:layout_alignEnd="@id/newPassword"
+        android:background="@color/colorPrimary"/>
 
-</LinearLayout>
+</RelativeLayout>
