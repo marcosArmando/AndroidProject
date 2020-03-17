@@ -16,4 +16,5 @@
     <string name="UsuarioExito">New user created successfully, now Log In!</string>
     <string name="pokemon">Pokemon!</string>
     <string name="LogOut">LogOut</string>
+    <string name="tienesTodos">Wait! You catched them all!</string>
 </resources>
