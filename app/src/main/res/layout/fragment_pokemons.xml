@@ -9,7 +9,7 @@
         android:id="@+id/myProgressBar"
         android:layout_width="@dimen/anchoBtnMain"
         android:layout_height="@dimen/anchoBtnMain"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
@@ -18,9 +18,21 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/rvMarginSide1"
         android:layout_marginRight="@dimen/rvMarginSide"/>
+
+    <TextView
+        android:id="@+id/tvNoInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible"
+        android:text="@string/noInternet"
+        android:textStyle="bold|italic"
+        android:textAlignment="center"
+        android:textSize="@dimen/sizeNOInternet"/>
 
 </RelativeLayout>

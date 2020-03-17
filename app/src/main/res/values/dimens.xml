@@ -15,4 +15,5 @@
     <dimen name="elevacionAB">4dp</dimen>
     <dimen name="rvMarginSide">10dp</dimen>
     <dimen name="rvMarginSide1">5dp</dimen>
+    <dimen name="sizeNOInternet">40sp</dimen>
 </resources>

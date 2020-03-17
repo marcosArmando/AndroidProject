@@ -1,8 +1,11 @@
 package com.yucatancorp.androidproject;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yucatancorp.androidproject.Activities.PokemonsActivity;
@@ -56,6 +61,8 @@ public class PokemonsFragment extends Fragment {
 
     private SharedPreferencesActions sharedPreferencesActions;
     private SharedPreferences sharedPreferences;
+
+    private TextView myTextView;
 
 
     public PokemonsFragment() {
@@ -103,9 +110,11 @@ public class PokemonsFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy > 0){
+                if (checkInternet()) {
 
-                    if (puedeCargar) {
+                    if(dy > 0){
+
+                        if (puedeCargar) {
 
                             if ((glm.getChildCount() + glm.getItemCount()) >= glm.findFirstCompletelyVisibleItemPosition()) {
                                 puedeCargar = false;
@@ -113,8 +122,17 @@ public class PokemonsFragment extends Fragment {
                                 cargarPokemons(offset);
                             }
 
+                        }
                     }
+                } else {
+
+
+                    recyclerView.setVisibility(View.GONE);
+                    myProgressBar.setVisibility(View.GONE);
+                    myTextView.setVisibility(View.VISIBLE);
+
                 }
+
             }
         });
 
@@ -157,5 +175,13 @@ public class PokemonsFragment extends Fragment {
         outState.putParcelableArrayList("pokemonsRe", pokemons);
         outState.putParcelable(TAG, recyclerView.getLayoutManager().onSaveInstanceState());
         super.onSaveInstanceState(outState);
+    }
+
+    public boolean checkInternet() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+
     }
 }

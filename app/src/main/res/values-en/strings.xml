@@ -17,4 +17,5 @@
     <string name="pokemon">Pokemon!</string>
     <string name="LogOut">LogOut</string>
     <string name="tienesTodos">Wait! You catched them all!</string>
+    <string name="noInternet">Sorry but... No internet!</string>
 </resources>
