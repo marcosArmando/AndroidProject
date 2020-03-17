@@ -111,7 +111,6 @@ public class PokemonsFragment extends Fragment {
             recyclerView.setVisibility(View.GONE);
             myProgressBar.setVisibility(View.GONE);
             myTextView.setVisibility(View.VISIBLE);
-
         }
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
