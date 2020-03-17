@@ -126,13 +126,11 @@ public class PokemonsFragment extends Fragment {
                     }
                 } else {
 
-
                     recyclerView.setVisibility(View.GONE);
                     myProgressBar.setVisibility(View.GONE);
                     myTextView.setVisibility(View.VISIBLE);
 
                 }
-
             }
         });
 
