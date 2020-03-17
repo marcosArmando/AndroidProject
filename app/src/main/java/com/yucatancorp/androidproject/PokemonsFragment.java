@@ -79,6 +79,7 @@ public class PokemonsFragment extends Fragment {
         pokemons = new ArrayList<>();
 
         myProgressBar = v.findViewById(R.id.myProgressBar);
+        myTextView = v.findViewById(R.id.tvNoInternet);
 
         sharedPreferences = getContext().getSharedPreferences(STATUS, 0);
         sharedPreferencesActions = new SharedPreferencesActions(sharedPreferences);
@@ -105,12 +106,18 @@ public class PokemonsFragment extends Fragment {
             recyclerView.setAdapter(pokemonAdaptador);
         }
 
+        if (!checkInternet()) {
+
+            recyclerView.setVisibility(View.GONE);
+            myProgressBar.setVisibility(View.GONE);
+            myTextView.setVisibility(View.VISIBLE);
+
+        }
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                if (checkInternet()) {
 
                     if(dy > 0){
 
@@ -124,19 +131,13 @@ public class PokemonsFragment extends Fragment {
 
                         }
                     }
-                } else {
-
-                    recyclerView.setVisibility(View.GONE);
-                    myProgressBar.setVisibility(View.GONE);
-                    myTextView.setVisibility(View.VISIBLE);
-
-                }
             }
         });
 
         retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
 
         cargarPokemons(offset);
+
 
         return v;
     }
