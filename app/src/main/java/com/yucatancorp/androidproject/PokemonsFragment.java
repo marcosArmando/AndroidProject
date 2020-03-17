@@ -107,10 +107,6 @@ public class PokemonsFragment extends Fragment {
                                 cargarPokemons(offset);
                             }
 
-                            if (pokemons.size() > 1000) {
-
-                                Toast.makeText(getContext(), getResources().getString(R.string.tienesTodos), Toast.LENGTH_LONG).show();
-                            }
                     }
                 }
             }

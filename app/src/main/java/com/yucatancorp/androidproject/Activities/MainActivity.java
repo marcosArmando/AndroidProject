@@ -2,14 +2,19 @@ package com.yucatancorp.androidproject.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -72,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
                 registrarUsuario(MainActivity.this);
             }
         });
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
+        return super.dispatchTouchEvent(ev);
     }
 
     public void hacerLogIn(View view) {
@@ -145,4 +161,5 @@ public class MainActivity extends AppCompatActivity {
         outState.putString(PASSWORDUSUARIO, passwordUsuario.getText().toString());
 
     }
+
 }

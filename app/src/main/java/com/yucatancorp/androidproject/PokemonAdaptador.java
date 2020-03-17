@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +66,10 @@ public class PokemonAdaptador extends RecyclerView.Adapter<PokemonAdaptador.Poke
                 .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokemonViewholder.imageView);
+
+        if (position > 900) {
+            Toast.makeText(context, context.getResources().getString(R.string.tienesTodos), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

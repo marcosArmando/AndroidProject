@@ -2,6 +2,7 @@ package com.yucatancorp.androidproject.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,8 +24,8 @@ public class PokemonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemons);
 
-
-
+        Toolbar myToolbar = findViewById(R.id.miActionBar);
+        setSupportActionBar(myToolbar);
 
     }
 

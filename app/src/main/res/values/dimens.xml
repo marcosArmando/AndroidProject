@@ -11,4 +11,6 @@
     <dimen name="altoCV">150dp</dimen>
     <dimen name="altoImagenCV">55dp</dimen>
     <dimen name="margenLeft">20dp</dimen>
+    <dimen name="letraSize">10sp</dimen>
+    <dimen name="elevacionAB">4dp</dimen>
 </resources>
