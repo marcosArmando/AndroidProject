@@ -13,4 +13,6 @@
     <dimen name="margenLeft">20dp</dimen>
     <dimen name="letraSize">10sp</dimen>
     <dimen name="elevacionAB">4dp</dimen>
+    <dimen name="rvMarginSide">10dp</dimen>
+    <dimen name="rvMarginSide1">5dp</dimen>
 </resources>
